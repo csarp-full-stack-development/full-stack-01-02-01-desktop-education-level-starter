@@ -30,6 +30,7 @@ namespace Kreta.Backend.Controllers
                 }
                 catch (Exception ex)
                 {
+                    await Console.Out.WriteLineAsync(ex.Message);
                 }
             }
             return BadRequest("Az adatok elérhetetlenek!");

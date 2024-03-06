@@ -3,19 +3,16 @@ using CommunityToolkit.Mvvm.Input;
 using Kreta.HttpService.Services;
 using Kreta.Shared.Responses;
 using Kreta.Desktop.ViewModels.Base;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Kreta.Shared.Models.SchoolCitizens;
 using Kreta.Shared.Models;
-using System.Linq;
 
 namespace Kreta.Desktop.ViewModels.SchoolCitizens
 {
     public partial class StudentViewModel : BaseViewModel
     {        
         private readonly IStudentService? _studentService;
-        private readonly IEducationLevelService? _educationLevelService;
 
         [ObservableProperty]
         private ObservableCollection<Student> _students = new();
@@ -31,11 +28,10 @@ namespace Kreta.Desktop.ViewModels.SchoolCitizens
             _selectedStudent = new Student();
         }
 
-        public StudentViewModel(IStudentService? studentService, IEducationLevelService? educationLevelService)
+        public StudentViewModel(IStudentService? studentService)
         {
             _selectedStudent = new Student();
             _studentService = studentService;
-            _educationLevelService = educationLevelService;
         }
 
         public async override Task InitializeAsync()
@@ -81,13 +77,7 @@ namespace Kreta.Desktop.ViewModels.SchoolCitizens
         }
 
         private async Task UpdateView()
-        {
-            if (_educationLevelService is not null)
-            { 
-                List<EducationLevel> educationLevels = await _educationLevelService.SelectAllAsync();
-                EducationLevels = new ObservableCollection<EducationLevel>(educationLevels);
-            }
+        {            
         }
-
     }
 }
